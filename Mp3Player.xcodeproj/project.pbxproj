@@ -13,6 +13,9 @@
 		3658831F1A67745F0093AC55 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3658831E1A67745F0093AC55 /* TableViewController.m */; };
 		365883221A6776CE0093AC55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 365883201A6776CE0093AC55 /* Main.storyboard */; };
 		3658832A1A677B920093AC55 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 365883291A677B920093AC55 /* Utils.m */; };
+		36799CA01A68B93B00517B08 /* songs.ini in Resources */ = {isa = PBXBuildFile; fileRef = 36799C9F1A68B93B00517B08 /* songs.ini */; };
+		36799CA41A68BC7A00517B08 /* INIParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 36799CA31A68BC7A00517B08 /* INIParser.m */; };
+		368CD3B51A690B1400544F42 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 368CD3B41A690B1400544F42 /* Player.m */; };
 		36958E8E1A63D6270071B8C4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 36958E8D1A63D6270071B8C4 /* main.m */; };
 		36958E911A63D6270071B8C4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 36958E901A63D6270071B8C4 /* AppDelegate.m */; };
 		36958E941A63D6270071B8C4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36958E931A63D6270071B8C4 /* ViewController.m */; };
@@ -43,6 +46,11 @@
 		365883211A6776CE0093AC55 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		365883281A677B920093AC55 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		365883291A677B920093AC55 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
+		36799C9F1A68B93B00517B08 /* songs.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = songs.ini; sourceTree = "<group>"; };
+		36799CA21A68BC6900517B08 /* INIParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INIParser.h; sourceTree = "<group>"; };
+		36799CA31A68BC7A00517B08 /* INIParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INIParser.m; sourceTree = "<group>"; };
+		368CD3B31A690B0C00544F42 /* Player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		368CD3B41A690B1400544F42 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 		36958E881A63D6270071B8C4 /* Mp3Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mp3Player.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36958E8C1A63D6270071B8C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36958E8D1A63D6270071B8C4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -85,6 +93,8 @@
 			children = (
 				365883281A677B920093AC55 /* Utils.h */,
 				365883291A677B920093AC55 /* Utils.m */,
+				36799CA21A68BC6900517B08 /* INIParser.h */,
+				36799CA31A68BC7A00517B08 /* INIParser.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -118,6 +128,8 @@
 				36958E931A63D6270071B8C4 /* ViewController.m */,
 				3658831D1A67745F0093AC55 /* TableViewController.h */,
 				3658831E1A67745F0093AC55 /* TableViewController.m */,
+				368CD3B31A690B0C00544F42 /* Player.h */,
+				368CD3B41A690B1400544F42 /* Player.m */,
 				365883271A677AA40093AC55 /* Utils */,
 				36958E981A63D6270071B8C4 /* Images.xcassets */,
 				365883201A6776CE0093AC55 /* Main.storyboard */,
@@ -169,6 +181,7 @@
 				365883191A6772B30093AC55 /* 阿诗玛.mp3 */,
 				36357E061A64C62D005A4F3E /* 2.mp3 */,
 				36958EB61A63D7930071B8C4 /* 逍遥叹.mp3 */,
+				36799C9F1A68B93B00517B08 /* songs.ini */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -254,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				365883221A6776CE0093AC55 /* Main.storyboard in Resources */,
+				36799CA01A68B93B00517B08 /* songs.ini in Resources */,
 				36958EB71A63D7930071B8C4 /* 逍遥叹.mp3 in Resources */,
 				3658831C1A6773070093AC55 /* 骊歌.mp3 in Resources */,
 				36357E071A64C62D005A4F3E /* 2.mp3 in Resources */,
@@ -282,6 +296,8 @@
 				36958E8E1A63D6270071B8C4 /* main.m in Sources */,
 				3658832A1A677B920093AC55 /* Utils.m in Sources */,
 				3658831F1A67745F0093AC55 /* TableViewController.m in Sources */,
+				368CD3B51A690B1400544F42 /* Player.m in Sources */,
+				36799CA41A68BC7A00517B08 /* INIParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

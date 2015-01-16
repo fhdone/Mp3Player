@@ -11,7 +11,9 @@
 @interface Utils : NSObject
 
 + (NSMutableArray *)getAllSongs;
++ (NSMutableDictionary *)getSongsDict;
 
+ 
 
 + (NSInteger)playIndex;
 + (void)setPlayIndex:(NSInteger) index;

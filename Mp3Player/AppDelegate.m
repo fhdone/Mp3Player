@@ -7,6 +7,10 @@
 //
 
 #import "AppDelegate.h"
+#import <AVFoundation/AVFoundation.h>
+#import "Player.h"
+#import "Utils.h"
+
 
 @interface AppDelegate ()
 
@@ -17,6 +21,30 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    //http://stackoverflow.com/questions/26996269/how-to-use-an-event-listener-to-detect-headset-plug-out-in-swift
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handleRouteChange:) name:AVAudioSessionRouteChangeNotification object:[AVAudioSession sharedInstance]];
+    
+    //    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
+    [self becomeFirstResponder];
+    
+    
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+    [session setActive:YES error:nil];
+    
+    UIBackgroundTaskIdentifier newTaskId = UIBackgroundTaskInvalid;
+    newTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:NULL];
+    UIBackgroundTaskIdentifier oldTakId = 0;
+    if(newTaskId != UIBackgroundTaskInvalid && oldTakId != UIBackgroundTaskInvalid)
+    {
+        [[UIApplication sharedApplication] endBackgroundTask:oldTakId];
+    }
+    oldTakId = newTaskId;
+    
     return YES;
 }
 
@@ -40,6 +68,55 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
+        [self resignFirstResponder];
+        [[NSNotificationCenter defaultCenter]removeObserver:self name:AVAudioSessionRouteChangeNotification object:[AVAudioSession sharedInstance]];
+}
+
+
+#pragma mark - AVAudioPlayer controller
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
+
+-(void)handleRouteChange:(NSNotification *)notif
+{
+    NSDictionary *dict = notif.userInfo;
+    AVAudioSessionRouteDescription *routeDesc = dict[AVAudioSessionRouteChangePreviousRouteKey];
+    AVAudioSessionPortDescription *prevPort = [routeDesc.outputs objectAtIndex:0];
+    if ([prevPort.portType isEqualToString:AVAudioSessionPortHeadphones]) {
+        [Player pauseMp3];
+    }
+}
+
+
+- (void) remoteControlReceivedWithEvent: (UIEvent *) receivedEvent {
+    if (receivedEvent.type == UIEventTypeRemoteControl) {
+        switch (receivedEvent.subtype) {
+            case UIEventSubtypeRemoteControlPlay:
+                [Player playMp3];
+                break;
+            case UIEventSubtypeRemoteControlPause:
+                [Player pauseMp3];
+                break;
+//            case UIEventSubtypeRemoteControlStop:
+//                [player stop];
+//                break;
+            case UIEventSubtypeRemoteControlTogglePlayPause:
+                [Player playOrPause];
+                break;
+            case UIEventSubtypeRemoteControlPreviousTrack:
+                [Player playSongFromName: [Utils getAllSongs][[Utils getPerviousIndex]] ];
+                break;
+            case UIEventSubtypeRemoteControlNextTrack:
+                [Player playSongFromName: [Utils getAllSongs][[Utils getNextIndex]] ];
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 @end

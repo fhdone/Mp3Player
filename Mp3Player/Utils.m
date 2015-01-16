@@ -7,9 +7,10 @@
 //
 
 #import "Utils.h"
-
+#import "INIParser.h"
 
 static NSMutableArray *songs;
+static NSMutableDictionary *songsDict;
 static NSInteger playIndex;
 
 @interface Utils ()
@@ -24,9 +25,47 @@ static NSInteger playIndex;
 
 + (NSMutableArray *)getAllSongs{
     if(! songs){
-        songs =  [NSMutableArray arrayWithObjects:@"骊歌",@"阿诗玛",@"逍遥叹", nil];
+//        songs =  [NSMutableArray arrayWithObjects:@"骊歌",@"阿诗玛",@"逍遥叹", nil];
+        songs = [[NSMutableArray alloc]init];
+        
+        NSString *resPath = [[NSBundle mainBundle] resourcePath];
+        NSError *error = nil;
+        NSArray *filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:resPath error:&error];
+        if (!error)
+        {
+            for (NSString * filename in filenames)
+            {
+                NSString *extension = [filename pathExtension];
+                if ( [extension caseInsensitiveCompare:@"mp3"] == 0)
+                {
+                    NSLog(@"%@", filename);
+                    [songs addObject:filename];
+                }
+            }
+        }
+        songsDict = [INIParser iniParse:@"songs"];
+        [songs addObjectsFromArray:[songsDict allKeys] ];
     }
+    
+    //    NSString *docsDir = [NSHomeDirectory() stringByAppendingPathComponent:  @"Documents"];
+    //    NSFileManager *localFileManager=[[NSFileManager alloc] init];
+    //    NSDirectoryEnumerator *dirEnum =
+    //    [localFileManager enumeratorAtPath:docsDir];
+    //
+    //    NSString *file;
+    //    while ((file = [dirEnum nextObject])) {
+    //        if ([[file pathExtension] isEqualToString: @"doc"]) {
+    //            // process the document
+    //            [self scanDocument: [docsDir stringByAppendingPathComponent:file]];
+    //        }
+    //    }
+    
+    
     return songs;
+}
+
++ (NSMutableDictionary*)getSongsDict{
+    return songsDict;
 }
 
 

@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController
+
+    @property (weak, nonatomic) IBOutlet UIButton *playButton;
+    @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingSpinner;
     @property(strong,nonatomic) NSString *songName;
 
 @end

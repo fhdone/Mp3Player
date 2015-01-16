@@ -54,7 +54,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wqF-yf-4kT">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wqF-yf-4kT">
                                 <rect key="frame" x="263" y="270" width="75" height="60"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <state key="normal" title="Play">
@@ -64,20 +64,27 @@
                                     <action selector="playMusic:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ytf-1e-Q6D"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="jmq-Lb-RSU">
+                                <rect key="frame" x="282" y="281" width="37" height="37"/>
+                                <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerY" secondItem="wqF-yf-4kT" secondAttribute="centerY" id="DQG-Na-e9Y"/>
-                            <constraint firstAttribute="centerX" secondItem="wqF-yf-4kT" secondAttribute="centerX" id="L9n-J2-YVN"/>
+                            <constraint firstAttribute="centerX" secondItem="jmq-Lb-RSU" secondAttribute="centerX" id="OGi-7U-k6J"/>
+                            <constraint firstAttribute="centerY" secondItem="wqF-yf-4kT" secondAttribute="centerY" id="agP-ds-w1K"/>
+                            <constraint firstAttribute="centerX" secondItem="wqF-yf-4kT" secondAttribute="centerX" id="ct0-EE-Gzd"/>
+                            <constraint firstAttribute="centerY" secondItem="jmq-Lb-RSU" secondAttribute="centerY" id="fKz-ow-FO6"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="loadingSpinner" destination="jmq-Lb-RSU" id="W0L-1r-A2J"/>
                         <outlet property="playButton" destination="wqF-yf-4kT" id="otq-GZ-soM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1456" y="336"/>
+            <point key="canvasLocation" x="1472" y="336"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fh0-f1-uDv">
