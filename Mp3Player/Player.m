@@ -8,7 +8,7 @@
 #import "Player.h"
 #import <AVFoundation/AVFoundation.h>
 #import "Utils.h"
-#import "ViewController.h"
+
 
 static AVAudioPlayer *player;
 static BOOL playing;
@@ -135,11 +135,8 @@ static BOOL playing;
 + (void)audioPlayerEndInterruption:(AVAudioPlayer *)player
 {
     NSLog(@"audioPlayerEndInterruption");
-//    [self playOrPause];
     [self playMp3];
     [self playStateChanged:@"Pause"];
-    
-
 }
 
 @end

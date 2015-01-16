@@ -10,7 +10,7 @@
 		36357E071A64C62D005A4F3E /* 2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 36357E061A64C62D005A4F3E /* 2.mp3 */; };
 		3658831A1A6772B30093AC55 /* 阿诗玛.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 365883191A6772B30093AC55 /* 阿诗玛.mp3 */; };
 		3658831C1A6773070093AC55 /* 骊歌.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3658831B1A6773070093AC55 /* 骊歌.mp3 */; };
-		3658831F1A67745F0093AC55 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3658831E1A67745F0093AC55 /* TableViewController.m */; };
+		3658831F1A67745F0093AC55 /* SongsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3658831E1A67745F0093AC55 /* SongsTableViewController.m */; };
 		365883221A6776CE0093AC55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 365883201A6776CE0093AC55 /* Main.storyboard */; };
 		3658832A1A677B920093AC55 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 365883291A677B920093AC55 /* Utils.m */; };
 		36799CA01A68B93B00517B08 /* songs.ini in Resources */ = {isa = PBXBuildFile; fileRef = 36799C9F1A68B93B00517B08 /* songs.ini */; };
@@ -18,7 +18,7 @@
 		368CD3B51A690B1400544F42 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 368CD3B41A690B1400544F42 /* Player.m */; };
 		36958E8E1A63D6270071B8C4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 36958E8D1A63D6270071B8C4 /* main.m */; };
 		36958E911A63D6270071B8C4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 36958E901A63D6270071B8C4 /* AppDelegate.m */; };
-		36958E941A63D6270071B8C4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36958E931A63D6270071B8C4 /* ViewController.m */; };
+		36958E941A63D6270071B8C4 /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36958E931A63D6270071B8C4 /* PlayerViewController.m */; };
 		36958E991A63D6270071B8C4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36958E981A63D6270071B8C4 /* Images.xcassets */; };
 		36958E9C1A63D6270071B8C4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36958E9A1A63D6270071B8C4 /* LaunchScreen.xib */; };
 		36958EA81A63D6270071B8C4 /* Mp3PlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 36958EA71A63D6270071B8C4 /* Mp3PlayerTests.m */; };
@@ -41,8 +41,8 @@
 		36357E061A64C62D005A4F3E /* 2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 2.mp3; sourceTree = "<group>"; };
 		365883191A6772B30093AC55 /* 阿诗玛.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "阿诗玛.mp3"; sourceTree = "<group>"; };
 		3658831B1A6773070093AC55 /* 骊歌.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "骊歌.mp3"; sourceTree = "<group>"; };
-		3658831D1A67745F0093AC55 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
-		3658831E1A67745F0093AC55 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		3658831D1A67745F0093AC55 /* SongsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongsTableViewController.h; sourceTree = "<group>"; };
+		3658831E1A67745F0093AC55 /* SongsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongsTableViewController.m; sourceTree = "<group>"; };
 		365883211A6776CE0093AC55 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		365883281A677B920093AC55 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		365883291A677B920093AC55 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
@@ -56,8 +56,8 @@
 		36958E8D1A63D6270071B8C4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		36958E8F1A63D6270071B8C4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		36958E901A63D6270071B8C4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		36958E921A63D6270071B8C4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		36958E931A63D6270071B8C4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		36958E921A63D6270071B8C4 /* PlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerViewController.h; sourceTree = "<group>"; };
+		36958E931A63D6270071B8C4 /* PlayerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerViewController.m; sourceTree = "<group>"; };
 		36958E981A63D6270071B8C4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		36958E9B1A63D6270071B8C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		36958EA11A63D6270071B8C4 /* Mp3PlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Mp3PlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,10 +124,10 @@
 			children = (
 				36958E8F1A63D6270071B8C4 /* AppDelegate.h */,
 				36958E901A63D6270071B8C4 /* AppDelegate.m */,
-				36958E921A63D6270071B8C4 /* ViewController.h */,
-				36958E931A63D6270071B8C4 /* ViewController.m */,
-				3658831D1A67745F0093AC55 /* TableViewController.h */,
-				3658831E1A67745F0093AC55 /* TableViewController.m */,
+				36958E921A63D6270071B8C4 /* PlayerViewController.h */,
+				36958E931A63D6270071B8C4 /* PlayerViewController.m */,
+				3658831D1A67745F0093AC55 /* SongsTableViewController.h */,
+				3658831E1A67745F0093AC55 /* SongsTableViewController.m */,
 				368CD3B31A690B0C00544F42 /* Player.h */,
 				368CD3B41A690B1400544F42 /* Player.m */,
 				365883271A677AA40093AC55 /* Utils */,
@@ -291,11 +291,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				36958E941A63D6270071B8C4 /* ViewController.m in Sources */,
+				36958E941A63D6270071B8C4 /* PlayerViewController.m in Sources */,
 				36958E911A63D6270071B8C4 /* AppDelegate.m in Sources */,
 				36958E8E1A63D6270071B8C4 /* main.m in Sources */,
 				3658832A1A677B920093AC55 /* Utils.m in Sources */,
-				3658831F1A67745F0093AC55 /* TableViewController.m in Sources */,
+				3658831F1A67745F0093AC55 /* SongsTableViewController.m in Sources */,
 				368CD3B51A690B1400544F42 /* Player.m in Sources */,
 				36799CA41A68BC7A00517B08 /* INIParser.m in Sources */,
 			);
