@@ -85,9 +85,6 @@ static NSURLSession *mp3DownloadSession;
 
 +(void)playSongFromUrl:(NSString*) url{
     downloadSongIndex = [Utils playIndex];
-//    [self.loadingSpinner startAnimating];
-//    NSURLRequest *request = [ NSURLRequest requestWithURL: [NSURL URLWithString:url] ];
-//    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
     if(!mp3DownloadSession){
         NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:MP3_FETCH];
         sessionConfig.allowsCellularAccess = NO;
@@ -98,26 +95,7 @@ static NSURLSession *mp3DownloadSession;
     NSURLSessionDownloadTask *task = [mp3DownloadSession downloadTaskWithURL:[NSURL URLWithString:url] ];
     task.taskDescription = MP3_FETCH;
     [task resume];
-    
-//    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request
-//                                                    completionHandler:^(NSURL *localFile, NSURLResponse *response, NSError *error) {
-//                                                        if (error) {
-//                                                            [self playStateChanged:@"Play"];
-//                                                            NSLog(@"MP3 background fetch failed: %@", error.localizedDescription);
-//                                                        } else {
-//                                                            NSLog(@"download completed");
-//                                                            dispatch_async(dispatch_get_main_queue(), ^{
-//                                                                if( index == [Utils playIndex]){
-//                                                                    NSError  *error;
-//                                                                    player  = [[AVAudioPlayer alloc] initWithContentsOfURL:localFile error:&error];
-//                                                                    player.delegate = (id<AVAudioPlayerDelegate>)self;
-//                                                                    //[self.loadingSpinner stopAnimating];
-//                                                                    [self playMp3];
-//                                                                }
-//                                                            });
-//                                                        }
-//                                                    }];
-//    [task resume];
+
 }
 
 

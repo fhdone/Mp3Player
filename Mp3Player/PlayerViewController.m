@@ -1,4 +1,3 @@
-//
 //  ViewController.m
 //  Mp3Player
 //
@@ -23,19 +22,21 @@
 
 -(void)awakeFromNib{
     [super awakeFromNib];
-    [[NSNotificationCenter defaultCenter] addObserverForName:PlayerStateChange
-                                                      object:nil
-                                                       queue:nil
-                                                  usingBlock:^(NSNotification *note) {
-                                                      [self.playButton setTitle:note.userInfo[@"State"] forState:UIControlStateNormal];
-                                                  }];
+//    [[NSNotificationCenter defaultCenter] addObserverForName:PlayerStateChange
+//                                                      object:nil
+//                                                       queue:nil
+//                                                  usingBlock:^(NSNotification *note) {
+//                                                      [self.playButton setTitle:note.userInfo[@"State"] forState:UIControlStateNormal];
+//                                                  }];
+//    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerStateChange:) name:PlayerStateChange object:nil];
+
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initPlayer];
 }
-
 
 - (void) viewWillDisappear:(BOOL)animated
 {
@@ -56,6 +57,13 @@
 
 
 #pragma mark - Controller
+
+-(void) playerStateChange:(NSNotification *) notification
+{
+//    NSLog(@"%@",notification.userInfo[@"State"]);
+    [self.playButton setTitle:notification.userInfo[@"State"] forState:UIControlStateNormal];
+}
+
 
 - (void)initPlayer {
     [Player playSongFromName: [Utils getAllSongs][[Utils playIndex]] ] ;
