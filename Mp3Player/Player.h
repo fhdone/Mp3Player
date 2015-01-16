@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #define PlayerStateChange @"PlayerStateChange"
+#define MP3_FETCH @"MP3_FETCH"
 
 @interface Player : NSObject
 

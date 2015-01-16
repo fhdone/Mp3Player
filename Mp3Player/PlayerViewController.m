@@ -33,9 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self initPlayer];
-    
 }
 
 
@@ -60,7 +58,7 @@
 #pragma mark - Controller
 
 - (void)initPlayer {
-    [Player playSongFromName:self.songName];
+    [Player playSongFromName: [Utils getAllSongs][[Utils playIndex]] ] ;
 }
 
 

@@ -12,13 +12,10 @@
 
 @interface SongsTableViewController ()
 
-    
 
 @end
 
 @implementation SongsTableViewController
-
-
 
 
 - (void)viewDidLoad {
@@ -48,9 +45,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"PLAY_SONG" ]) {
         if ([segue.destinationViewController isKindOfClass:[PlayerViewController class]]) {
-            PlayerViewController *vc = (PlayerViewController *)segue.destinationViewController;
+//            PlayerViewController *vc = (PlayerViewController *)segue.destinationViewController;
             NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-            [vc setSongName:[Utils getAllSongs][indexPath.row]];
             [Utils setPlayIndex: indexPath.row ];
         }
     }

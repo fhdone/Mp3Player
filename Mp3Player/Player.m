@@ -12,16 +12,15 @@
 
 static AVAudioPlayer *player;
 static BOOL playing;
-
+static NSInteger downloadSongIndex;
+static NSURLSession *mp3DownloadSession;
 
 @interface Player()
-
 
 @end
 
 
 @implementation Player
-
 
 
 + (void)playMp3 {
@@ -85,30 +84,40 @@ static BOOL playing;
 
 
 +(void)playSongFromUrl:(NSString*) url{
+    downloadSongIndex = [Utils playIndex];
 //    [self.loadingSpinner startAnimating];
-    NSURLRequest *request = [ NSURLRequest requestWithURL: [NSURL URLWithString:url] ];
-    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-    sessionConfig.allowsCellularAccess = NO;
-    sessionConfig.timeoutIntervalForRequest = 15;
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
-    
-    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request
-                                                    completionHandler:^(NSURL *localFile, NSURLResponse *response, NSError *error) {
-                                                        if (error) {
-                                                            [self playStateChanged:@"Play"];
-                                                            NSLog(@"MP3 background fetch failed: %@", error.localizedDescription);
-                                                        } else {
-                                                            NSLog(@"download completed");
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                NSError  *error;
-                                                                player  = [[AVAudioPlayer alloc] initWithContentsOfURL:localFile error:&error];
-                                                                player.delegate = (id<AVAudioPlayerDelegate>)self;
-//                                                              [self.loadingSpinner stopAnimating];
-                                                                [self playMp3];
-                                                            });
-                                                        }
-                                                    }];
+//    NSURLRequest *request = [ NSURLRequest requestWithURL: [NSURL URLWithString:url] ];
+//    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    if(!mp3DownloadSession){
+        NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:MP3_FETCH];
+        sessionConfig.allowsCellularAccess = NO;
+        sessionConfig.timeoutIntervalForRequest = 15;
+        mp3DownloadSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:(id<NSURLSessionDownloadDelegate>)self  delegateQueue:nil ];
+    }
+    NSLog(@"start download");
+    NSURLSessionDownloadTask *task = [mp3DownloadSession downloadTaskWithURL:[NSURL URLWithString:url] ];
+    task.taskDescription = MP3_FETCH;
     [task resume];
+    
+//    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request
+//                                                    completionHandler:^(NSURL *localFile, NSURLResponse *response, NSError *error) {
+//                                                        if (error) {
+//                                                            [self playStateChanged:@"Play"];
+//                                                            NSLog(@"MP3 background fetch failed: %@", error.localizedDescription);
+//                                                        } else {
+//                                                            NSLog(@"download completed");
+//                                                            dispatch_async(dispatch_get_main_queue(), ^{
+//                                                                if( index == [Utils playIndex]){
+//                                                                    NSError  *error;
+//                                                                    player  = [[AVAudioPlayer alloc] initWithContentsOfURL:localFile error:&error];
+//                                                                    player.delegate = (id<AVAudioPlayerDelegate>)self;
+//                                                                    //[self.loadingSpinner stopAnimating];
+//                                                                    [self playMp3];
+//                                                                }
+//                                                            });
+//                                                        }
+//                                                    }];
+//    [task resume];
 }
 
 
@@ -138,5 +147,26 @@ static BOOL playing;
     [self playMp3];
     [self playStateChanged:@"Pause"];
 }
+
+#pragma mark - NSURLSessionDownloadDelegate
++ (void)URLSession:(NSURLSession *)session
+      downloadTask:(NSURLSessionDownloadTask *)downloadTask
+didFinishDownloadingToURL:(NSURL *)location;
+{
+    if ([downloadTask.taskDescription isEqualToString:MP3_FETCH]) {
+        NSLog(@"download completed");
+        if( downloadSongIndex == [Utils playIndex]){
+            NSData *d = [NSData dataWithContentsOfURL:location];
+            NSLog( @"%ld", [d length]);
+            NSError  *error;
+            player  = [[AVAudioPlayer alloc] initWithData:d error:&error];
+            player.delegate = (id<AVAudioPlayerDelegate>)self;
+            //[self.loadingSpinner stopAnimating];
+            [self playMp3];
+        }
+    }
+}
+
+
 
 @end

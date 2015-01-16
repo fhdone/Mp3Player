@@ -38,11 +38,14 @@ static NSInteger playIndex;
                 NSString *extension = [filename pathExtension];
                 if ( [extension caseInsensitiveCompare:@"mp3"] == 0)
                 {
-                    NSLog(@"%@", filename);
+//                    NSLog(@"%@", filename);
                     [songs addObject:filename];
                 }
             }
+            NSArray *arr = [songs sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+            songs = [NSMutableArray arrayWithArray:arr];
         }
+        
         songsDict = [INIParser iniParse:@"songs"];
         [songs addObjectsFromArray:[songsDict allKeys] ];
     }

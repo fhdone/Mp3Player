@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		361F2ACE1A694D4E00D309EE /* 在重中之重.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 361F2ACD1A694D4E00D309EE /* 在重中之重.mp3 */; };
 		36357E071A64C62D005A4F3E /* 2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 36357E061A64C62D005A4F3E /* 2.mp3 */; };
 		3658831A1A6772B30093AC55 /* 阿诗玛.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 365883191A6772B30093AC55 /* 阿诗玛.mp3 */; };
 		3658831C1A6773070093AC55 /* 骊歌.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3658831B1A6773070093AC55 /* 骊歌.mp3 */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		361F2ACD1A694D4E00D309EE /* 在重中之重.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "在重中之重.mp3"; sourceTree = "<group>"; };
 		36357E061A64C62D005A4F3E /* 2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 2.mp3; sourceTree = "<group>"; };
 		365883191A6772B30093AC55 /* 阿诗玛.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "阿诗玛.mp3"; sourceTree = "<group>"; };
 		3658831B1A6773070093AC55 /* 骊歌.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "骊歌.mp3"; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		36958EB81A63D8730071B8C4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				361F2ACD1A694D4E00D309EE /* 在重中之重.mp3 */,
 				3658831B1A6773070093AC55 /* 骊歌.mp3 */,
 				365883191A6772B30093AC55 /* 阿诗玛.mp3 */,
 				36357E061A64C62D005A4F3E /* 2.mp3 */,
@@ -235,6 +238,11 @@
 				TargetAttributes = {
 					36958E871A63D6260071B8C4 = {
 						CreatedOnToolsVersion = 6.1.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					36958EA01A63D6270071B8C4 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -272,6 +280,7 @@
 				3658831C1A6773070093AC55 /* 骊歌.mp3 in Resources */,
 				36357E071A64C62D005A4F3E /* 2.mp3 in Resources */,
 				36958E9C1A63D6270071B8C4 /* LaunchScreen.xib in Resources */,
+				361F2ACE1A694D4E00D309EE /* 在重中之重.mp3 in Resources */,
 				36958E991A63D6270071B8C4 /* Images.xcassets in Resources */,
 				3658831A1A6772B30093AC55 /* 阿诗玛.mp3 in Resources */,
 			);

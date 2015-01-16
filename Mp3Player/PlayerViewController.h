@@ -12,7 +12,7 @@
 
     @property (weak, nonatomic) IBOutlet UIButton *playButton;
     @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingSpinner;
-    @property(strong,nonatomic) NSString *songName;
+    @property (assign,nonatomic) NSInteger songIndex;
 
 @end
 
