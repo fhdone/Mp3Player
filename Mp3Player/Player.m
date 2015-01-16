@@ -85,14 +85,24 @@ static NSURLSession *mp3DownloadSession;
 
 +(void)playSongFromUrl:(NSString*) url{
     downloadSongIndex = [Utils playIndex];
+    NSLog(@"start download");
+    NSMutableURLRequest *request = [ NSMutableURLRequest requestWithURL: [NSURL URLWithString:url] ];
     if(!mp3DownloadSession){
-        NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:MP3_FETCH];
-        sessionConfig.allowsCellularAccess = NO;
-        sessionConfig.timeoutIntervalForRequest = 15;
+        NSURLSessionConfiguration *sessionConfig;
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+            sessionConfig = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:MP3_FETCH];
+            [request setTimeoutInterval:15];
+            [request setAllowsCellularAccess:NO];
+        }
+        else {
+            sessionConfig = [NSURLSessionConfiguration backgroundSessionConfiguration:MP3_FETCH];
+            sessionConfig.allowsCellularAccess = NO;
+            sessionConfig.timeoutIntervalForRequest = 15;
+        }
         mp3DownloadSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:(id<NSURLSessionDownloadDelegate>)self  delegateQueue:nil ];
     }
-    NSLog(@"start download");
-    NSURLSessionDownloadTask *task = [mp3DownloadSession downloadTaskWithURL:[NSURL URLWithString:url] ];
+    
+    NSURLSessionDownloadTask *task = [mp3DownloadSession downloadTaskWithRequest:request];
     task.taskDescription = MP3_FETCH;
     [task resume];
 
@@ -142,6 +152,14 @@ didFinishDownloadingToURL:(NSURL *)location;
             //[self.loadingSpinner stopAnimating];
             [self playMp3];
         }
+    }
+}
+
++ (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
+didCompleteWithError:(NSError *)error{
+    if(error){
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        [self playSongFromName: [Utils getAllSongs][[Utils getNextIndex]] ];
     }
 }
 

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 #define PlayerStateChange @"PlayerStateChange"
 #define MP3_FETCH @"MP3_FETCH"
