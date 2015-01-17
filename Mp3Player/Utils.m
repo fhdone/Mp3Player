@@ -25,7 +25,6 @@ static NSInteger playIndex;
 
 + (NSMutableArray *)getAllSongs{
     if(! songs){
-//        songs =  [NSMutableArray arrayWithObjects:@"骊歌",@"阿诗玛",@"逍遥叹", nil];
         songs = [[NSMutableArray alloc]init];
         
         NSString *resPath = [[NSBundle mainBundle] resourcePath];
@@ -72,7 +71,7 @@ static NSInteger playIndex;
 }
 
 
-+ (NSInteger)playIndex{
++ (NSInteger)getPlayIndex{
     return playIndex;
 }
 
@@ -98,6 +97,32 @@ static NSInteger playIndex;
     return playIndex;
 }
 
++ (NSString *)getPlaySongName{
+    return [Utils getAllSongs][[Utils getPlayIndex]];
+}
 
+
++ (NSURL *) rootPath{
+    NSArray *documentDirectories = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+    return [documentDirectories firstObject];
+}
+
++(NSURL*)getFilePath:(NSString*)filePath{
+    NSURL *path = [[self rootPath] URLByAppendingPathComponent:filePath];
+    NSLog(@"File path %@" , path);
+    return path;
+}
+
++ (NSData*)readFile:(NSString*) filePath{
+    NSLog(@"Reading file %@", filePath );
+    return [NSData dataWithContentsOfURL:[self getFilePath:filePath]];
+}
+
++ (NSURL *)saveFile:(NSData *)fileDate filePath:(NSString *)filePath  {
+    NSURL *savePath = [[self rootPath] URLByAppendingPathComponent:filePath];
+    NSLog(@"Save file path %@" , savePath );
+    [fileDate writeToURL:savePath atomically:YES];
+    return savePath;
+}
 
 @end

@@ -66,7 +66,7 @@
 
 
 - (void)initPlayer {
-    [Player playSongFromName: [Utils getAllSongs][[Utils playIndex]] ] ;
+    [Player playSongFromName: [Utils getPlaySongName]] ;
 }
 
 

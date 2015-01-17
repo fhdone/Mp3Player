@@ -16,6 +16,7 @@
 		3658832A1A677B920093AC55 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 365883291A677B920093AC55 /* Utils.m */; };
 		36799CA01A68B93B00517B08 /* songs.ini in Resources */ = {isa = PBXBuildFile; fileRef = 36799C9F1A68B93B00517B08 /* songs.ini */; };
 		36799CA41A68BC7A00517B08 /* INIParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 36799CA31A68BC7A00517B08 /* INIParser.m */; };
+		367EDAF91A6A547E000755E7 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 367EDAF71A6A547E000755E7 /* MediaPlayer.framework */; };
 		368CD3B51A690B1400544F42 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 368CD3B41A690B1400544F42 /* Player.m */; };
 		36958E8E1A63D6270071B8C4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 36958E8D1A63D6270071B8C4 /* main.m */; };
 		36958E911A63D6270071B8C4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 36958E901A63D6270071B8C4 /* AppDelegate.m */; };
@@ -51,6 +52,8 @@
 		36799C9F1A68B93B00517B08 /* songs.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = songs.ini; sourceTree = "<group>"; };
 		36799CA21A68BC6900517B08 /* INIParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INIParser.h; sourceTree = "<group>"; };
 		36799CA31A68BC7A00517B08 /* INIParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INIParser.m; sourceTree = "<group>"; };
+		367EDAF71A6A547E000755E7 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		367EDAF81A6A547E000755E7 /* MediaToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaToolbox.framework; path = System/Library/Frameworks/MediaToolbox.framework; sourceTree = SDKROOT; };
 		368CD3B31A690B0C00544F42 /* Player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		368CD3B41A690B1400544F42 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 		36958E881A63D6270071B8C4 /* Mp3Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mp3Player.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				367EDAF91A6A547E000755E7 /* MediaPlayer.framework in Frameworks */,
 				36958EB41A63D7270071B8C4 /* AudioToolbox.framework in Frameworks */,
 				36958EB21A63D71A0071B8C4 /* AVFoundation.framework in Frameworks */,
 			);
@@ -170,6 +174,8 @@
 		36958EB51A63D72C0071B8C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				367EDAF71A6A547E000755E7 /* MediaPlayer.framework */,
+				367EDAF81A6A547E000755E7 /* MediaToolbox.framework */,
 				36958EB31A63D7270071B8C4 /* AudioToolbox.framework */,
 				36958EB11A63D71A0071B8C4 /* AVFoundation.framework */,
 			);

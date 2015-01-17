@@ -14,10 +14,16 @@
 + (NSMutableDictionary *)getSongsDict;
 
  
-
-+ (NSInteger)playIndex;
+;
++ (NSInteger)getPlayIndex;
 + (void)setPlayIndex:(NSInteger) index;
 + (NSInteger)getNextIndex;
 + (NSInteger)getPerviousIndex;
+
++ (NSString *)getPlaySongName;
+
++ (NSURL*)getFilePath:(NSString*)filePath;
++ (NSData *)readFile:(NSString*) filePath;
++ (NSURL *)saveFile:(NSData *)fileDate filePath:(NSString *)filePath;
 
 @end

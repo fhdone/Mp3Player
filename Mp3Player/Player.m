@@ -58,7 +58,7 @@ static NSURLSession *mp3DownloadSession;
     else{
         NSString* url = [[Utils getSongsDict]objectForKey:songName];
         if ( url ){
-            [self playSongFromUrl:url];
+            [self playSongFromUrl:url fileName:songName];
         }
         else{
             [self playSongFromName: [Utils getAllSongs][[Utils getNextIndex]] ];
@@ -66,47 +66,54 @@ static NSURLSession *mp3DownloadSession;
     }
 }
 
-
-+(void)playSongFromDisk:(NSString*)musicFilePath{
-    NSURL * musicURL= [[NSURL alloc] initFileURLWithPath: musicFilePath ];
-    //NSURL  *musicURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/逍遥叹.mp3",  [[NSBundle mainBundle]  resourcePath]]];
-    
++(void)playMP3Prepare:(NSURL*)musicURL{
     NSError  *error;
     player  = [[AVAudioPlayer alloc] initWithContentsOfURL:musicURL error:&error];
     if(error){
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        NSLog(@"PlayMP3Prepare error %@, %@", error, [error userInfo]);
     }
     player.delegate = (id<AVAudioPlayerDelegate>)self;
     [self metadataWithFileURL:musicURL playerDuring:player.duration];
     [self playMp3];
+}
+
+
++(void)playSongFromDisk:(NSString*)musicFilePath{
+    NSURL * musicURL= [[NSURL alloc] initFileURLWithPath: musicFilePath ];
+    [self playMP3Prepare:musicURL];
     //[thePlayer setVolume:10];
     //[player setNumberOfLoops:0];
 }
 
 
-+(void)playSongFromUrl:(NSString*) url{
-    downloadSongIndex = [Utils playIndex];
-    NSLog(@"start download");
-    NSMutableURLRequest *request = [ NSMutableURLRequest requestWithURL: [NSURL URLWithString:url] ];
-    if(!mp3DownloadSession){
-        NSURLSessionConfiguration *sessionConfig;
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-            sessionConfig = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:MP3_FETCH];
-            [request setTimeoutInterval:15];
-            [request setAllowsCellularAccess:NO];
-        }
-        else {
-            sessionConfig = [NSURLSessionConfiguration backgroundSessionConfiguration:MP3_FETCH];
-            sessionConfig.allowsCellularAccess = NO;
-            sessionConfig.timeoutIntervalForRequest = 15;
-        }
-        mp3DownloadSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:(id<NSURLSessionDownloadDelegate>)self  delegateQueue:nil ];
++(void)playSongFromUrl:(NSString*) url fileName:(NSString*)fileName {
+    NSData *data = [Utils readFile:fileName];
+    if(data){
+        [self playMP3Prepare:[Utils getFilePath:fileName]];
     }
-    
-    NSURLSessionDownloadTask *task = [mp3DownloadSession downloadTaskWithRequest:request];
-    task.taskDescription = MP3_FETCH;
-    [task resume];
-
+    else{
+        downloadSongIndex = [Utils getPlayIndex];
+        NSLog(@"start download %@" , fileName);
+        NSMutableURLRequest *request = [ NSMutableURLRequest requestWithURL: [NSURL URLWithString:url] ];
+        if(!mp3DownloadSession){
+            NSURLSessionConfiguration *sessionConfig;
+            if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+                sessionConfig = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:MP3_FETCH];
+                [request setTimeoutInterval:15];
+                [request setAllowsCellularAccess:NO];
+            }
+            else {
+                sessionConfig = [NSURLSessionConfiguration backgroundSessionConfiguration:MP3_FETCH];
+                sessionConfig.allowsCellularAccess = NO;
+                sessionConfig.timeoutIntervalForRequest = 15;
+            }
+            mp3DownloadSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:(id<NSURLSessionDownloadDelegate>)self  delegateQueue:nil ];
+        }
+        
+        NSURLSessionDownloadTask *task = [mp3DownloadSession downloadTaskWithRequest:request];
+        task.taskDescription = MP3_FETCH;
+        [task resume];
+    }
 }
 
 
@@ -143,16 +150,11 @@ static NSURLSession *mp3DownloadSession;
 didFinishDownloadingToURL:(NSURL *)location;
 {
     if ([downloadTask.taskDescription isEqualToString:MP3_FETCH]) {
-        NSLog(@"download completed");
-        if( downloadSongIndex == [Utils playIndex]){
+        NSLog(@"download completed %@" , location);
+        if( downloadSongIndex == [Utils getPlayIndex]){
             NSData *d = [NSData dataWithContentsOfURL:location];
-            NSLog( @"%ld", [d length]);
-            NSError  *error;
-            player  = [[AVAudioPlayer alloc] initWithData:d error:&error];
-            player.delegate = (id<AVAudioPlayerDelegate>)self;
-            //[self.loadingSpinner stopAnimating];
-            [self metadataWithFileURL:location playerDuring:player.duration];
-            [self playMp3];
+            NSURL *filePath = [Utils saveFile:d filePath:[Utils getPlaySongName] ];
+            [self playMP3Prepare:filePath];
         }
     }
 }
@@ -174,13 +176,22 @@ didCompleteWithError:(NSError *)error{
     NSArray *titles = [AVMetadataItem metadataItemsFromArray:asset.commonMetadata withKey:AVMetadataCommonKeyTitle keySpace:AVMetadataKeySpaceCommon];
     NSArray *artists = [AVMetadataItem metadataItemsFromArray:asset.commonMetadata withKey:AVMetadataCommonKeyArtist keySpace:AVMetadataKeySpaceCommon];
     NSArray *albumNames = [AVMetadataItem metadataItemsFromArray:asset.commonMetadata withKey:AVMetadataCommonKeyAlbumName keySpace:AVMetadataKeySpaceCommon];
-    AVMetadataItem *title = [titles objectAtIndex:0];
-    AVMetadataItem *artist = [artists objectAtIndex:0];
-    AVMetadataItem *albumName = [albumNames objectAtIndex:0];
-    
-    [mediaInfo setObject:[title.value copyWithZone:nil]  forKey:MPMediaItemPropertyTitle];
-    [mediaInfo setObject:[artist.value copyWithZone:nil]  forKey:MPMediaItemPropertyArtist];
-    [mediaInfo setObject:[albumName.value copyWithZone:nil]  forKey:MPMediaItemPropertyAlbumTitle];
+    if( [titles count] ){
+        AVMetadataItem *title = [titles objectAtIndex:0];
+        [mediaInfo setObject:[title.value copyWithZone:nil]  forKey:MPMediaItemPropertyTitle];
+    }
+    else{
+        NSString *songTitle = [Utils getPlaySongName];
+        [mediaInfo setObject:songTitle forKey:MPMediaItemPropertyTitle];
+    }
+    if( [artists count] ){
+        AVMetadataItem *artist = [artists objectAtIndex:0];
+        [mediaInfo setObject:[artist.value copyWithZone:nil]  forKey:MPMediaItemPropertyArtist];
+    }
+    if( [albumNames count] ){
+        AVMetadataItem *albumName = [albumNames objectAtIndex:0];
+        [mediaInfo setObject:[albumName.value copyWithZone:nil]  forKey:MPMediaItemPropertyAlbumTitle];
+    }
     
     NSArray *keys = [NSArray arrayWithObjects:@"commonMetadata", nil];
     [asset loadValuesAsynchronouslyForKeys:keys completionHandler:^{
