@@ -37,14 +37,14 @@
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
     [session setActive:YES error:nil];
     
-    UIBackgroundTaskIdentifier newTaskId = UIBackgroundTaskInvalid;
-    newTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:NULL];
-    UIBackgroundTaskIdentifier oldTakId = 0;
-    if(newTaskId != UIBackgroundTaskInvalid && oldTakId != UIBackgroundTaskInvalid)
-    {
-        [[UIApplication sharedApplication] endBackgroundTask:oldTakId];
-    }
-    oldTakId = newTaskId;
+//    UIBackgroundTaskIdentifier newTaskId = UIBackgroundTaskInvalid;
+//    newTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:NULL];
+//    UIBackgroundTaskIdentifier oldTakId = 0;
+//    if(newTaskId != UIBackgroundTaskInvalid && oldTakId != UIBackgroundTaskInvalid)
+//    {
+//        [[UIApplication sharedApplication] endBackgroundTask:oldTakId];
+//    }
+//    oldTakId = newTaskId;
     
     return YES;
 }

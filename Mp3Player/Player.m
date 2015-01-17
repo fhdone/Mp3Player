@@ -74,7 +74,15 @@ static NSURLSession *mp3DownloadSession;
     }
     player.delegate = (id<AVAudioPlayerDelegate>)self;
     [self metadataWithFileURL:musicURL playerDuring:player.duration];
+    
+//    UIBackgroundTaskIdentifier bgTaskId = 0;
+//    UIBackgroundTaskIdentifier newTaskId = UIBackgroundTaskInvalid;
     [self playMp3];
+//    newTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:NULL];
+//    if (newTaskId != UIBackgroundTaskInvalid && bgTaskId != UIBackgroundTaskInvalid)
+//        [[UIApplication sharedApplication] endBackgroundTask: bgTaskId];
+//    
+//    bgTaskId = newTaskId;
 }
 
 

@@ -48,21 +48,6 @@ static NSInteger playIndex;
         songsDict = [INIParser iniParse:@"songs"];
         [songs addObjectsFromArray:[songsDict allKeys] ];
     }
-    
-    //    NSString *docsDir = [NSHomeDirectory() stringByAppendingPathComponent:  @"Documents"];
-    //    NSFileManager *localFileManager=[[NSFileManager alloc] init];
-    //    NSDirectoryEnumerator *dirEnum =
-    //    [localFileManager enumeratorAtPath:docsDir];
-    //
-    //    NSString *file;
-    //    while ((file = [dirEnum nextObject])) {
-    //        if ([[file pathExtension] isEqualToString: @"doc"]) {
-    //            // process the document
-    //            [self scanDocument: [docsDir stringByAppendingPathComponent:file]];
-    //        }
-    //    }
-    
-    
     return songs;
 }
 
@@ -103,6 +88,7 @@ static NSInteger playIndex;
 
 
 + (NSURL *) rootPath{
+
     NSArray *documentDirectories = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
     return [documentDirectories firstObject];
 }
@@ -118,10 +104,16 @@ static NSInteger playIndex;
     return [NSData dataWithContentsOfURL:[self getFilePath:filePath]];
 }
 
+//http://stackoverflow.com/questions/22952929/any-other-ways-to-access-documents-directory-on-idevice-locked-state
 + (NSURL *)saveFile:(NSData *)fileDate filePath:(NSString *)filePath  {
     NSURL *savePath = [[self rootPath] URLByAppendingPathComponent:filePath];
     NSLog(@"Save file path %@" , savePath );
-    [fileDate writeToURL:savePath atomically:YES];
+    NSError *error;
+    [fileDate writeToURL:savePath options:NSDataWritingFileProtectionNone error:&error];
+    if(error){
+        NSLog(@"PlayMP3Prepare error %@, %@", error, [error userInfo]);
+    }
+    
     return savePath;
 }
 
