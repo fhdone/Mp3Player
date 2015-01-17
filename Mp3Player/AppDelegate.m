@@ -72,7 +72,7 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-//    NSLog(@"applicationWillTerminate");
+//    NSLog(@"applicationWillTerminates");
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
         [self resignFirstResponder];

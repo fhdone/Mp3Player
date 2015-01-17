@@ -8,6 +8,8 @@
 #import "Player.h"
 #import <AVFoundation/AVFoundation.h>
 #import "Utils.h"
+#import <MediaPlayer/MPNowPlayingInfoCenter.h>
+#import <MediaPlayer/MPMediaItem.h>
 
 
 static AVAudioPlayer *player;
@@ -77,6 +79,7 @@ static NSURLSession *mp3DownloadSession;
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     }
     player.delegate = (id<AVAudioPlayerDelegate>)self;
+    [self metadataWithFileURL:musicURL playerDuring:player.duration];
     [self playMp3];
     //[thePlayer setVolume:10];
     //[player setNumberOfLoops:0];
@@ -150,6 +153,7 @@ didFinishDownloadingToURL:(NSURL *)location;
             player  = [[AVAudioPlayer alloc] initWithData:d error:&error];
             player.delegate = (id<AVAudioPlayerDelegate>)self;
             //[self.loadingSpinner stopAnimating];
+            [self metadataWithFileURL:location playerDuring:player.duration];
             [self playMp3];
         }
     }
@@ -163,6 +167,43 @@ didCompleteWithError:(NSError *)error{
     }
 }
 
+
+
+
+
++ (void)metadataWithFileURL:(NSURL*)fileURL playerDuring:(double)playerDuring {
+    NSMutableDictionary *mediaInfo = [[NSMutableDictionary alloc]init];
+    
+    AVAsset *asset = [AVURLAsset URLAssetWithURL:fileURL options:nil];
+    for (AVMetadataItem *metadataItem in asset.commonMetadata) {
+        NSLog(@"%@" , [metadataItem commonKey]);
+        if ([[metadataItem commonKey] isEqualToString:@"title"]) {
+            [mediaInfo setObject:(NSString *)[metadataItem value]  forKey:MPMediaItemPropertyTitle];
+        }
+        else if ([[metadataItem commonKey] isEqualToString:@"artist"]) {
+            [mediaInfo setObject:(NSString *)[metadataItem value]  forKey:MPMediaItemPropertyArtist];
+        }
+        else if ([[metadataItem commonKey] isEqualToString:@"albumName"]) {
+           [mediaInfo setObject:(NSString *)[metadataItem value]  forKey:MPMediaItemPropertyAlbumTitle];
+        }
+        else if ([[metadataItem commonKey] isEqualToString:@"artwork"]) {
+//            UIImage *img = nil;
+//            if ([metadataItem.keySpace isEqualToString:AVMetadataKeySpaceiTunes]) {
+//                img = [UIImage imageWithData:[metadataItem.value copyWithZone:nil]];
+//            }
+//            else { // if ([item.keySpace isEqualToString:AVMetadataKeySpaceID3]) {
+//                NSData *data = [(NSDictionary *)[metadataItem value] objectForKey:@"data"];
+//                img = [UIImage imageWithData:data];
+//                
+//            }
+        }
+    }
+
+    [mediaInfo setObject:[NSNumber numberWithDouble:playerDuring ] forKey:MPMediaItemPropertyPlaybackDuration];
+    [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:mediaInfo];
+    
+    
+}
 
 
 @end
