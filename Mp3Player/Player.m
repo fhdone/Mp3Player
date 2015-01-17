@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 com.fhdone. All rights reserved.
 //
 #import "Player.h"
-#import <AVFoundation/AVFoundation.h>
 #import "Utils.h"
+#import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MPNowPlayingInfoCenter.h>
 #import <MediaPlayer/MPMediaItem.h>
 
@@ -23,8 +23,6 @@ static NSURLSession *mp3DownloadSession;
 
 
 @implementation Player
-
-
 + (void)playMp3 {
     if ([player play])
     {
@@ -168,42 +166,43 @@ didCompleteWithError:(NSError *)error{
 }
 
 
-
-
-
+//http://stackoverflow.com/questions/14030746/ios-avfoundation-how-do-i-fetch-artwork-from-an-mp3-file
 + (void)metadataWithFileURL:(NSURL*)fileURL playerDuring:(double)playerDuring {
     NSMutableDictionary *mediaInfo = [[NSMutableDictionary alloc]init];
     
     AVAsset *asset = [AVURLAsset URLAssetWithURL:fileURL options:nil];
-    for (AVMetadataItem *metadataItem in asset.commonMetadata) {
-        NSLog(@"%@" , [metadataItem commonKey]);
-        if ([[metadataItem commonKey] isEqualToString:@"title"]) {
-            [mediaInfo setObject:(NSString *)[metadataItem value]  forKey:MPMediaItemPropertyTitle];
+    NSArray *titles = [AVMetadataItem metadataItemsFromArray:asset.commonMetadata withKey:AVMetadataCommonKeyTitle keySpace:AVMetadataKeySpaceCommon];
+    NSArray *artists = [AVMetadataItem metadataItemsFromArray:asset.commonMetadata withKey:AVMetadataCommonKeyArtist keySpace:AVMetadataKeySpaceCommon];
+    NSArray *albumNames = [AVMetadataItem metadataItemsFromArray:asset.commonMetadata withKey:AVMetadataCommonKeyAlbumName keySpace:AVMetadataKeySpaceCommon];
+    AVMetadataItem *title = [titles objectAtIndex:0];
+    AVMetadataItem *artist = [artists objectAtIndex:0];
+    AVMetadataItem *albumName = [albumNames objectAtIndex:0];
+    
+    [mediaInfo setObject:[title.value copyWithZone:nil]  forKey:MPMediaItemPropertyTitle];
+    [mediaInfo setObject:[artist.value copyWithZone:nil]  forKey:MPMediaItemPropertyArtist];
+    [mediaInfo setObject:[albumName.value copyWithZone:nil]  forKey:MPMediaItemPropertyAlbumTitle];
+    
+    NSArray *keys = [NSArray arrayWithObjects:@"commonMetadata", nil];
+    [asset loadValuesAsynchronouslyForKeys:keys completionHandler:^{
+        NSArray *artworks = [AVMetadataItem metadataItemsFromArray:asset.commonMetadata
+                                                           withKey:AVMetadataCommonKeyArtwork
+                                                          keySpace:AVMetadataKeySpaceCommon];
+        UIImage *img = nil;
+        for (AVMetadataItem *item in artworks) {
+                NSData *newImage = [item.value copyWithZone:nil];
+                img = [UIImage imageWithData:newImage];
+                MPMediaItemArtwork * mArt = [[MPMediaItemArtwork alloc] initWithImage:img ];
+                [mediaInfo setObject: mArt forKey:MPMediaItemPropertyArtwork ];
         }
-        else if ([[metadataItem commonKey] isEqualToString:@"artist"]) {
-            [mediaInfo setObject:(NSString *)[metadataItem value]  forKey:MPMediaItemPropertyArtist];
-        }
-        else if ([[metadataItem commonKey] isEqualToString:@"albumName"]) {
-           [mediaInfo setObject:(NSString *)[metadataItem value]  forKey:MPMediaItemPropertyAlbumTitle];
-        }
-        else if ([[metadataItem commonKey] isEqualToString:@"artwork"]) {
-//            UIImage *img = nil;
-//            if ([metadataItem.keySpace isEqualToString:AVMetadataKeySpaceiTunes]) {
-//                img = [UIImage imageWithData:[metadataItem.value copyWithZone:nil]];
-//            }
-//            else { // if ([item.keySpace isEqualToString:AVMetadataKeySpaceID3]) {
-//                NSData *data = [(NSDictionary *)[metadataItem value] objectForKey:@"data"];
-//                img = [UIImage imageWithData:data];
-//                
-//            }
-        }
-    }
-
+    }];
     [mediaInfo setObject:[NSNumber numberWithDouble:playerDuring ] forKey:MPMediaItemPropertyPlaybackDuration];
     [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:mediaInfo];
-    
-    
 }
 
 
+
 @end
+
+
+
+
