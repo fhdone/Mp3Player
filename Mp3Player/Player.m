@@ -12,10 +12,16 @@
 #import <MediaPlayer/MPMediaItem.h>
 
 
+#define PLAY_STRING	@">"
+#define PAUSE_STRING	@"||"
+
 static AVAudioPlayer *player;
 static BOOL playing;
 static NSInteger downloadSongIndex;
 static NSURLSession *mp3DownloadSession;
+static NSString *playingArtist;
+static NSString *playingTitle;
+static UIImage *playingImg;
 
 @interface Player()
 
@@ -27,7 +33,7 @@ static NSURLSession *mp3DownloadSession;
     if ([player play])
     {
         playing = YES;
-        [self playStateChanged:@"Pause"];
+        [self playStateChanged:PAUSE_STRING];
     }
     else
     {
@@ -38,7 +44,7 @@ static NSURLSession *mp3DownloadSession;
 + (void)pauseMp3 {
     playing = NO;
     [player pause];
-    [self playStateChanged:@"Play"];
+    [self playStateChanged:PLAY_STRING];
 }
 
 + (void)playOrPause {
@@ -142,14 +148,14 @@ static NSURLSession *mp3DownloadSession;
 + (void)audioPlayerBeginInterruption:(AVAudioPlayer *)player
 {
     NSLog(@"audioPlayerBeginInterruption");
-    [self playStateChanged:@"Play"];
+    [self playStateChanged:PLAY_STRING];
 }
 
 + (void)audioPlayerEndInterruption:(AVAudioPlayer *)player
 {
     NSLog(@"audioPlayerEndInterruption");
     [self playMp3];
-    [self playStateChanged:@"Pause"];
+    [self playStateChanged:PAUSE_STRING];
 }
 
 #pragma mark - NSURLSessionDownloadDelegate
@@ -179,6 +185,9 @@ didCompleteWithError:(NSError *)error{
 //http://stackoverflow.com/questions/14030746/ios-avfoundation-how-do-i-fetch-artwork-from-an-mp3-file
 + (void)metadataWithFileURL:(NSURL*)fileURL playerDuring:(double)playerDuring {
     NSMutableDictionary *mediaInfo = [[NSMutableDictionary alloc]init];
+    playingTitle = nil;
+    playingArtist = nil;
+    playingImg = nil;
     
     AVAsset *asset = [AVURLAsset URLAssetWithURL:fileURL options:nil];
     NSArray *titles = [AVMetadataItem metadataItemsFromArray:asset.commonMetadata withKey:AVMetadataCommonKeyTitle keySpace:AVMetadataKeySpaceCommon];
@@ -186,14 +195,17 @@ didCompleteWithError:(NSError *)error{
     NSArray *albumNames = [AVMetadataItem metadataItemsFromArray:asset.commonMetadata withKey:AVMetadataCommonKeyAlbumName keySpace:AVMetadataKeySpaceCommon];
     if( [titles count] ){
         AVMetadataItem *title = [titles objectAtIndex:0];
+        playingTitle = (NSString*)title.value;
         [mediaInfo setObject:[title.value copyWithZone:nil]  forKey:MPMediaItemPropertyTitle];
     }
     else{
         NSString *songTitle = [Utils getPlaySongName];
+        playingTitle = songTitle;
         [mediaInfo setObject:songTitle forKey:MPMediaItemPropertyTitle];
     }
     if( [artists count] ){
         AVMetadataItem *artist = [artists objectAtIndex:0];
+        playingArtist = (NSString*)artist.value;;
         [mediaInfo setObject:[artist.value copyWithZone:nil]  forKey:MPMediaItemPropertyArtist];
     }
     if( [albumNames count] ){
@@ -208,18 +220,32 @@ didCompleteWithError:(NSError *)error{
                                                           keySpace:AVMetadataKeySpaceCommon];
         UIImage *img = nil;
         for (AVMetadataItem *item in artworks) {
-                NSData *newImage = [item.value copyWithZone:nil];
-                img = [UIImage imageWithData:newImage];
-                MPMediaItemArtwork * mArt = [[MPMediaItemArtwork alloc] initWithImage:img ];
-                [mediaInfo setObject: mArt forKey:MPMediaItemPropertyArtwork ];
+            NSData *newImage = [item.value copyWithZone:nil];
+            img = [UIImage imageWithData:newImage];
+            playingImg = img;
+            MPMediaItemArtwork * mArt = [[MPMediaItemArtwork alloc] initWithImage:img ];
+            [mediaInfo setObject: mArt forKey:MPMediaItemPropertyArtwork ];
+            break;
         }
     }];
     [mediaInfo setObject:[NSNumber numberWithDouble:playerDuring ] forKey:MPMediaItemPropertyPlaybackDuration];
     [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:mediaInfo];
+    
+//    NSDictionary *stateDict = [NSDictionary dictionaryWithObjectsAndKeys:playState,@"State",nil];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:PlayerStateChange object:self userInfo:stateDict];
+    
 }
 
 
-
++ (NSString *) playingArtist{
+    return playingArtist;
+}
++ (NSString *) playingTitle{
+    return playingTitle;
+}
++ (UIImage *) playingImg{
+    return playingImg;
+}
 @end
 
 

@@ -10,8 +10,6 @@
 #import "Utils.h"
 #import "Player.h"
 
-
-
 @interface PlayerViewController ()
 
 
@@ -55,6 +53,13 @@
     
 }
 
+- (IBAction)playNext:(UIButton *)sender {
+    [Player playSongFromName: [Utils getAllSongs][[Utils getNextIndex]]  ];
+}
+
+- (IBAction)playPervious:(UIButton *)sender {
+    [Player playSongFromName: [Utils getAllSongs][[Utils getPerviousIndex]]  ];
+}
 
 #pragma mark - Controller
 
@@ -62,6 +67,9 @@
 {
 //    NSLog(@"%@",notification.userInfo[@"State"]);
     [self.playButton setTitle:notification.userInfo[@"State"] forState:UIControlStateNormal];
+    self.playingTitle.text = [Player playingTitle];
+    self.playingImg.image = [Player playingImg];
+//    [self.playingImg sizeToFit];
 }
 
 

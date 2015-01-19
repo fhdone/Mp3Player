@@ -21,6 +21,10 @@
 
 + (void)playOrPause;
 
-+(void)playSongFromName:(NSString*)songName;
++ (void)playSongFromName:(NSString*)songName;
+
++ (NSString *) playingArtist;
++ (NSString *) playingTitle;
++ (UIImage *) playingImg;
 
 @end

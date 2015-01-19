@@ -88,7 +88,6 @@ static NSInteger playIndex;
 
 
 + (NSURL *) rootPath{
-
     NSArray *documentDirectories = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
     return [documentDirectories firstObject];
 }
