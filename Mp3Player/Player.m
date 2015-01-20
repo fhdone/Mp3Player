@@ -13,7 +13,7 @@
 
 
 #define PLAY_STRING	@">"
-#define PAUSE_STRING	@"||"
+#define PAUSE_STRING	@"| |"
 
 static AVAudioPlayer *player;
 static BOOL playing;
@@ -103,11 +103,12 @@ static UIImage *playingImg;
 +(void)playSongFromUrl:(NSString*) url fileName:(NSString*)fileName {
     NSData *data = [Utils readFile:fileName];
     if(data){
+        NSLog(@"Get %@ in disk" , fileName );
         [self playMP3Prepare:[Utils getFilePath:fileName]];
     }
     else{
         downloadSongIndex = [Utils getPlayIndex];
-        NSLog(@"start download %@" , fileName);
+        NSLog(@"Start download %@" , fileName);
         NSMutableURLRequest *request = [ NSMutableURLRequest requestWithURL: [NSURL URLWithString:url] ];
         if(!mp3DownloadSession){
             NSURLSessionConfiguration *sessionConfig;
@@ -164,7 +165,7 @@ static UIImage *playingImg;
 didFinishDownloadingToURL:(NSURL *)location;
 {
     if ([downloadTask.taskDescription isEqualToString:MP3_FETCH]) {
-        NSLog(@"download completed %@" , location);
+        NSLog(@"Completed download %@" , location);
         if( downloadSongIndex == [Utils getPlayIndex]){
             NSData *d = [NSData dataWithContentsOfURL:location];
             NSURL *filePath = [Utils saveFile:d filePath:[Utils getPlaySongName] ];
@@ -230,7 +231,6 @@ didCompleteWithError:(NSError *)error{
     }];
     [mediaInfo setObject:[NSNumber numberWithDouble:playerDuring ] forKey:MPMediaItemPropertyPlaybackDuration];
     [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:mediaInfo];
-
     
 }
 
