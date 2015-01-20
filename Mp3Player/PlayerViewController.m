@@ -56,14 +56,12 @@
 
 -(void) playerStateChange:(NSNotification *) notification
 {
-    //NSLog(@"%@",notification.userInfo[@"State"]);
     [self.playButton setTitle:notification.userInfo[@"State"] forState:UIControlStateNormal];
     self.playingTitle.text = [Player playingTitle];
     self.playArtist.text = [Player playingArtist];
     self.playingImg.image = [Player playingImg];
     //http://stackoverflow.com/questions/5408234/how-to-force-a-view-to-render-itself
     [CATransaction flush];
-    //[self.playingImg sizeToFit];
 }
 
 
