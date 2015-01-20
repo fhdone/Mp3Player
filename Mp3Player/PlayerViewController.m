@@ -22,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    [CATransaction setDisableActions:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerStateChange:) name:PlayerStateChange object:nil];
     [self initPlayer];
 }
