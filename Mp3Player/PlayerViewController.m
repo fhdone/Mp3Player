@@ -18,28 +18,18 @@
 
 @implementation PlayerViewController
 
--(void)awakeFromNib{
-    [super awakeFromNib];
-//    [[NSNotificationCenter defaultCenter] addObserverForName:PlayerStateChange
-//                                                      object:nil
-//                                                       queue:nil
-//                                                  usingBlock:^(NSNotification *note) {
-//                                                      [self.playButton setTitle:note.userInfo[@"State"] forState:UIControlStateNormal];
-//                                                  }];
-//    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerStateChange:) name:PlayerStateChange object:nil];
 
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerStateChange:) name:PlayerStateChange object:nil];
     [self initPlayer];
 }
 
 - (void) viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:PlayerStateChange object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:PlayerStateChange object:nil];
 }
 
 
