@@ -47,7 +47,7 @@
 		365428EE1A6EA281009BDB26 /* 在重中之重.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "在重中之重.mp3"; sourceTree = "<group>"; };
 		365428EF1A6EA281009BDB26 /* 骊歌.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "骊歌.mp3"; sourceTree = "<group>"; };
 		365428F01A6EA281009BDB26 /* 阿诗玛.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "阿诗玛.mp3"; sourceTree = "<group>"; };
-		365428F61A6EA413009BDB26 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		365428F61A6EA413009BDB26 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = .gitignore; path = ../.gitignore; sourceTree = "<group>"; };
 		3658831D1A67745F0093AC55 /* SongsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongsTableViewController.h; sourceTree = "<group>"; };
 		3658831E1A67745F0093AC55 /* SongsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongsTableViewController.m; sourceTree = "<group>"; };
 		365883211A6776CE0093AC55 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -99,6 +99,7 @@
 		365428DB1A6E9624009BDB26 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				365428F61A6EA413009BDB26 /* .gitignore */,
 				365428EC1A6EA281009BDB26 /* 逍遥叹.mp3 */,
 				365428ED1A6EA281009BDB26 /* 2.mp3 */,
 				365428EE1A6EA281009BDB26 /* 在重中之重.mp3 */,
@@ -123,7 +124,6 @@
 		36958E7F1A63D6260071B8C4 = {
 			isa = PBXGroup;
 			children = (
-				365428F61A6EA413009BDB26 /* .gitignore */,
 				36958E8A1A63D6270071B8C4 /* Mp3Player */,
 				36958EA41A63D6270071B8C4 /* Mp3PlayerTests */,
 				36958E891A63D6270071B8C4 /* Products */,
