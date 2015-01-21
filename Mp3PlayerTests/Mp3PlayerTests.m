@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+#import "NSString+TimeToString.h"
+
+//http://www.it165.net/pro/html/201403/10828.html
+//command + U
 
 @interface Mp3PlayerTests : XCTestCase
 
@@ -27,6 +31,9 @@
 
 - (void)testExample {
     // This is an example of a functional test case.
+    NSLog(@"%@" , [NSString stringFromTime:315]  );
+    NSLog(@"%@" , [NSString stringFromTime:1315]  );
+    NSLog(@"%@" , [NSString stringFromTime:10001]  );
     XCTAssert(YES, @"Pass");
 }
 
