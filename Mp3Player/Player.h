@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MPNowPlayingInfoCenter.h>
+#import <MediaPlayer/MPMediaItem.h>
 
 #define PlayerStateChange @"PlayerStateChange"
 #define MP3_FETCH @"MP3_FETCH"
@@ -23,8 +26,12 @@
 
 + (void)playSongFromName:(NSString*)songName;
 
+
 + (NSString *) playingArtist;
 + (NSString *) playingTitle;
 + (UIImage *) playingImg;
++ (double) playingDuring;
+
++ (AVAudioPlayer *)player;
 
 @end

@@ -7,10 +7,6 @@
 //
 #import "Player.h"
 #import "Utils.h"
-#import <AVFoundation/AVFoundation.h>
-#import <MediaPlayer/MPNowPlayingInfoCenter.h>
-#import <MediaPlayer/MPMediaItem.h>
-
 
 #define PLAY_STRING	@">"
 #define PAUSE_STRING	@"| |"
@@ -22,6 +18,7 @@ static NSURLSession *mp3DownloadSession;
 static NSString *playingArtist;
 static NSString *playingTitle;
 static UIImage *playingImg;
+static double playingDuring;
 
 @interface Player()
 
@@ -133,7 +130,7 @@ static UIImage *playingImg;
 
 
 #pragma mark - Notification
-+(void)playStateChanged:(NSString*)playState{
++ (void)playStateChanged:(NSString*)playState{
     NSDictionary *stateDict = [NSDictionary dictionaryWithObjectsAndKeys:playState,@"State",nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:PlayerStateChange object:self userInfo:stateDict];
 }
@@ -229,6 +226,7 @@ didCompleteWithError:(NSError *)error{
             break;
         }
     }];
+    playingDuring = playerDuring;
     [mediaInfo setObject:[NSNumber numberWithDouble:playerDuring ] forKey:MPMediaItemPropertyPlaybackDuration];
     [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:mediaInfo];
     
@@ -244,6 +242,14 @@ didCompleteWithError:(NSError *)error{
 + (UIImage *) playingImg{
     return playingImg;
 }
++ (double) playingDuring{
+    return playingDuring;
+}
+
++ (AVAudioPlayer *)player{
+    return player;
+}
+
 @end
 
 

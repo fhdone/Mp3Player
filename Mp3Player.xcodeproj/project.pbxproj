@@ -7,8 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		361B5F791A6F699700B37F7B /* NSString+TimeToString.m in Sources */ = {isa = PBXBuildFile; fileRef = 361B5F781A6F699700B37F7B /* NSString+TimeToString.m */; };
 		365428E31A6E9624009BDB26 /* songs.ini in Resources */ = {isa = PBXBuildFile; fileRef = 365428DD1A6E9624009BDB26 /* songs.ini */; };
 		365428F71A6EA413009BDB26 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 365428F61A6EA413009BDB26 /* .gitignore */; };
+		365428FD1A6EA92E009BDB26 /* 2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 365428F81A6EA92E009BDB26 /* 2.mp3 */; };
+		365428FE1A6EA92E009BDB26 /* 阿诗玛.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 365428F91A6EA92E009BDB26 /* 阿诗玛.mp3 */; };
+		365428FF1A6EA92E009BDB26 /* 骊歌.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 365428FA1A6EA92E009BDB26 /* 骊歌.mp3 */; };
+		365429001A6EA92E009BDB26 /* 逍遥叹.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 365428FB1A6EA92E009BDB26 /* 逍遥叹.mp3 */; };
+		365429011A6EA92E009BDB26 /* 在重中之重.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 365428FC1A6EA92E009BDB26 /* 在重中之重.mp3 */; };
 		3658831F1A67745F0093AC55 /* SongsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3658831E1A67745F0093AC55 /* SongsTableViewController.m */; };
 		365883221A6776CE0093AC55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 365883201A6776CE0093AC55 /* Main.storyboard */; };
 		3658832A1A677B920093AC55 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 365883291A677B920093AC55 /* Utils.m */; };
@@ -36,8 +42,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		361B5F771A6F699700B37F7B /* NSString+TimeToString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TimeToString.h"; sourceTree = "<group>"; };
+		361B5F781A6F699700B37F7B /* NSString+TimeToString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TimeToString.m"; sourceTree = "<group>"; };
 		365428DD1A6E9624009BDB26 /* songs.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = songs.ini; sourceTree = "<group>"; };
 		365428F61A6EA413009BDB26 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = .gitignore; path = ../.gitignore; sourceTree = "<group>"; };
+		365428F81A6EA92E009BDB26 /* 2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 2.mp3; sourceTree = "<group>"; };
+		365428F91A6EA92E009BDB26 /* 阿诗玛.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "阿诗玛.mp3"; sourceTree = "<group>"; };
+		365428FA1A6EA92E009BDB26 /* 骊歌.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "骊歌.mp3"; sourceTree = "<group>"; };
+		365428FB1A6EA92E009BDB26 /* 逍遥叹.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "逍遥叹.mp3"; sourceTree = "<group>"; };
+		365428FC1A6EA92E009BDB26 /* 在重中之重.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "在重中之重.mp3"; sourceTree = "<group>"; };
 		3658831D1A67745F0093AC55 /* SongsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongsTableViewController.h; sourceTree = "<group>"; };
 		3658831E1A67745F0093AC55 /* SongsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongsTableViewController.m; sourceTree = "<group>"; };
 		365883211A6776CE0093AC55 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -89,6 +102,11 @@
 		365428DB1A6E9624009BDB26 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				365428F81A6EA92E009BDB26 /* 2.mp3 */,
+				365428F91A6EA92E009BDB26 /* 阿诗玛.mp3 */,
+				365428FA1A6EA92E009BDB26 /* 骊歌.mp3 */,
+				365428FB1A6EA92E009BDB26 /* 逍遥叹.mp3 */,
+				365428FC1A6EA92E009BDB26 /* 在重中之重.mp3 */,
 				365428F61A6EA413009BDB26 /* .gitignore */,
 				365428DD1A6E9624009BDB26 /* songs.ini */,
 			);
@@ -100,6 +118,8 @@
 			children = (
 				365883281A677B920093AC55 /* Utils.h */,
 				365883291A677B920093AC55 /* Utils.m */,
+				361B5F771A6F699700B37F7B /* NSString+TimeToString.h */,
+				361B5F781A6F699700B37F7B /* NSString+TimeToString.m */,
 				36799CA21A68BC6900517B08 /* INIParser.h */,
 				36799CA31A68BC7A00517B08 /* INIParser.m */,
 			);
@@ -269,10 +289,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				365428F71A6EA413009BDB26 /* .gitignore in Resources */,
+				365428FE1A6EA92E009BDB26 /* 阿诗玛.mp3 in Resources */,
+				365428FF1A6EA92E009BDB26 /* 骊歌.mp3 in Resources */,
+				365429001A6EA92E009BDB26 /* 逍遥叹.mp3 in Resources */,
 				365883221A6776CE0093AC55 /* Main.storyboard in Resources */,
 				365428E31A6E9624009BDB26 /* songs.ini in Resources */,
+				365428FD1A6EA92E009BDB26 /* 2.mp3 in Resources */,
 				36958E9C1A63D6270071B8C4 /* LaunchScreen.xib in Resources */,
 				36958E991A63D6270071B8C4 /* Images.xcassets in Resources */,
+				365429011A6EA92E009BDB26 /* 在重中之重.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,6 +321,7 @@
 				3658832A1A677B920093AC55 /* Utils.m in Sources */,
 				3658831F1A67745F0093AC55 /* SongsTableViewController.m in Sources */,
 				368CD3B51A690B1400544F42 /* Player.m in Sources */,
+				361B5F791A6F699700B37F7B /* NSString+TimeToString.m in Sources */,
 				36799CA41A68BC7A00517B08 /* INIParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

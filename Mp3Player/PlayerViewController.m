@@ -9,15 +9,25 @@
 #import <AVFoundation/AVFoundation.h>
 #import "Utils.h"
 #import "Player.h"
+#import "NSString+TimeToString.h"
 
 @interface PlayerViewController ()
 
-
+@property (strong, nonatomic) NSTimer *timer;
+@property (weak, nonatomic) IBOutlet UIImageView *playingImg;
+@property (weak, nonatomic) IBOutlet UILabel *playingTitle;
+@property (weak, nonatomic) IBOutlet UILabel *playArtist;
+@property (weak, nonatomic) IBOutlet UIButton *playButton;
+@property (weak, nonatomic) IBOutlet UISlider *playSlider;
+@property (weak, nonatomic) IBOutlet UILabel *trackCurrentPlaybackTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *trackLengthLabel;
+@property BOOL panningProgress;
+//    @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingSpinner;
+@property (assign,nonatomic) NSInteger songIndex;
 
 @end
 
 @implementation PlayerViewController
-
 
 
 - (void)viewDidLoad {
@@ -60,6 +70,9 @@
     self.playingTitle.text = [Player playingTitle];
     self.playArtist.text = [Player playingArtist];
     self.playingImg.image = [Player playingImg];
+    self.playSlider.value = [[Player player]currentTime];
+    self.playSlider.maximumValue = [Player playingDuring];
+    self.trackLengthLabel.text = [NSString stringFromTime:[Player playingDuring]];
     //http://stackoverflow.com/questions/5408234/how-to-force-a-view-to-render-itself
     [CATransaction flush];
 }
@@ -67,9 +80,24 @@
 
 - (void)initPlayer {
     [Player playSongFromName: [Utils getPlaySongName]] ;
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timedJob) userInfo:nil repeats:YES];
 }
 
+#pragma mark - Play slider
+- (void)timedJob {
+    if (!self.panningProgress) {
+        self.playSlider.value = [[Player player]currentTime];
+        self.trackCurrentPlaybackTimeLabel.text = [NSString stringFromTime: [[Player player]currentTime ]];
+    }
+}
+- (IBAction)progressChanged:(UISlider *)sender {
+    self.panningProgress = YES;
+    self.trackCurrentPlaybackTimeLabel.text = [NSString stringFromTime: sender.value];
+}
 
-
+- (IBAction)progressEnd:(UISlider *)sender {
+    self.panningProgress = NO;
+    [[Player player] setCurrentTime: self.playSlider.value];
+}
 
 @end
