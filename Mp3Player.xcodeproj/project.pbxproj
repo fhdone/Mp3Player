@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		361B5F791A6F699700B37F7B /* NSString+TimeToString.m in Sources */ = {isa = PBXBuildFile; fileRef = 361B5F781A6F699700B37F7B /* NSString+TimeToString.m */; };
+		36439CFA1A6FFE14005EEAC4 /* Images in Resources */ = {isa = PBXBuildFile; fileRef = 36439CF91A6FFE14005EEAC4 /* Images */; };
 		365428E31A6E9624009BDB26 /* songs.ini in Resources */ = {isa = PBXBuildFile; fileRef = 365428DD1A6E9624009BDB26 /* songs.ini */; };
 		365428F71A6EA413009BDB26 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 365428F61A6EA413009BDB26 /* .gitignore */; };
 		365428FD1A6EA92E009BDB26 /* 2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 365428F81A6EA92E009BDB26 /* 2.mp3 */; };
@@ -44,6 +45,7 @@
 /* Begin PBXFileReference section */
 		361B5F771A6F699700B37F7B /* NSString+TimeToString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TimeToString.h"; sourceTree = "<group>"; };
 		361B5F781A6F699700B37F7B /* NSString+TimeToString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TimeToString.m"; sourceTree = "<group>"; };
+		36439CF91A6FFE14005EEAC4 /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
 		365428DD1A6E9624009BDB26 /* songs.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = songs.ini; sourceTree = "<group>"; };
 		365428F61A6EA413009BDB26 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = .gitignore; path = ../.gitignore; sourceTree = "<group>"; };
 		365428F81A6EA92E009BDB26 /* 2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 2.mp3; sourceTree = "<group>"; };
@@ -99,9 +101,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		36439CE91A6FF6B3005EEAC4 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				36958E921A63D6270071B8C4 /* PlayerViewController.h */,
+				36958E931A63D6270071B8C4 /* PlayerViewController.m */,
+				3658831D1A67745F0093AC55 /* SongsTableViewController.h */,
+				3658831E1A67745F0093AC55 /* SongsTableViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		36439CEA1A6FF6C2005EEAC4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				365883201A6776CE0093AC55 /* Main.storyboard */,
+				36958E9A1A63D6270071B8C4 /* LaunchScreen.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		365428DB1A6E9624009BDB26 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				36439CF91A6FFE14005EEAC4 /* Images */,
 				365428F81A6EA92E009BDB26 /* 2.mp3 */,
 				365428F91A6EA92E009BDB26 /* 阿诗玛.mp3 */,
 				365428FA1A6EA92E009BDB26 /* 骊歌.mp3 */,
@@ -116,6 +139,8 @@
 		365883271A677AA40093AC55 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				368CD3B31A690B0C00544F42 /* Player.h */,
+				368CD3B41A690B1400544F42 /* Player.m */,
 				365883281A677B920093AC55 /* Utils.h */,
 				365883291A677B920093AC55 /* Utils.m */,
 				361B5F771A6F699700B37F7B /* NSString+TimeToString.h */,
@@ -130,9 +155,9 @@
 			isa = PBXGroup;
 			children = (
 				36958E8A1A63D6270071B8C4 /* Mp3Player */,
-				36958EA41A63D6270071B8C4 /* Mp3PlayerTests */,
 				36958E891A63D6270071B8C4 /* Products */,
 				365428DB1A6E9624009BDB26 /* Resources */,
+				36958EA41A63D6270071B8C4 /* Mp3PlayerTests */,
 				36958EB51A63D72C0071B8C4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -151,16 +176,10 @@
 			children = (
 				36958E8F1A63D6270071B8C4 /* AppDelegate.h */,
 				36958E901A63D6270071B8C4 /* AppDelegate.m */,
-				36958E921A63D6270071B8C4 /* PlayerViewController.h */,
-				36958E931A63D6270071B8C4 /* PlayerViewController.m */,
-				3658831D1A67745F0093AC55 /* SongsTableViewController.h */,
-				3658831E1A67745F0093AC55 /* SongsTableViewController.m */,
-				368CD3B31A690B0C00544F42 /* Player.h */,
-				368CD3B41A690B1400544F42 /* Player.m */,
+				36439CE91A6FF6B3005EEAC4 /* Controller */,
+				36439CEA1A6FF6C2005EEAC4 /* View */,
 				365883271A677AA40093AC55 /* Utils */,
 				36958E981A63D6270071B8C4 /* Images.xcassets */,
-				365883201A6776CE0093AC55 /* Main.storyboard */,
-				36958E9A1A63D6270071B8C4 /* LaunchScreen.xib */,
 				36958E8B1A63D6270071B8C4 /* Supporting Files */,
 			);
 			path = Mp3Player;
@@ -288,6 +307,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36439CFA1A6FFE14005EEAC4 /* Images in Resources */,
 				365428F71A6EA413009BDB26 /* .gitignore in Resources */,
 				365428FE1A6EA92E009BDB26 /* 阿诗玛.mp3 in Resources */,
 				365428FF1A6EA92E009BDB26 /* 骊歌.mp3 in Resources */,
