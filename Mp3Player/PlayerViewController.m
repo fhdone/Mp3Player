@@ -82,7 +82,7 @@
     [Player playSongFromName: [Utils getPlaySongName]] ;
     
     [self.playSlider setThumbImage:[UIImage imageNamed:@"Images/playing.png"] forState:UIControlStateNormal ];
-//    self.playSlider.thumbTintColor = [UIColor blueColor];
+    self.playSlider.thumbTintColor = [UIColor whiteColor];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timedJob) userInfo:nil repeats:YES];
 }
 
